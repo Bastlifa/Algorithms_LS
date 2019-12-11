@@ -3,7 +3,25 @@
 import math
 
 def recipe_batches(recipe, ingredients):
-  pass 
+  batches = 0
+  making = True
+  def make_batch():
+    for k in recipe.keys():
+      nonlocal making
+      try:
+        ingredients[k] -= recipe[k]
+        if ingredients[k] < 0:
+          making = False
+          return
+      except:
+        making = False
+        return
+    nonlocal batches
+    batches += 1
+  while making:
+    make_batch()
+
+  return batches
 
 
 if __name__ == '__main__':
